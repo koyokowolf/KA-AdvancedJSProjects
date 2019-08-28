@@ -3,7 +3,7 @@
 var Tile = function(x, y, face) {
     this.x = x;
     this.y = y;
-    this.width = 70;
+    this.width = 60;// changed width to fit 6 rows and columns on screen
     this.face = face;
     this.isFaceUp = false;
     this.isMatch = false;
@@ -26,8 +26,8 @@ Tile.prototype.isUnderMouse = function(x, y) {
 };
 
 // Global config
-var NUM_COLS = 5;
-var NUM_ROWS = 4;
+var NUM_COLS = 6;//added a column
+var NUM_ROWS = 6;//added 2 rows
 
 // Declare an array of all possible faces
 var faces = [
@@ -40,7 +40,16 @@ var faces = [
     getImage("avatars/mr-pants"),
     getImage("avatars/mr-pink"),
     getImage("avatars/old-spice-man"),
-    getImage("avatars/robot_female_1")
+    getImage("avatars/robot_female_1"),
+//add 8 more images so that 6 rows and columns  works
+    getImage("avatars/aqualine-seed"),
+    getImage("avatars/aqualine-seedling"),
+    getImage("avatars/aqualine-sapling"),
+    getImage("avatars/aqualine-tree"),
+    getImage("avatars/aqualine-ultimate"),
+    getImage("avatars/orange-juice-squid"),
+    getImage("avatars/purple-pi"),
+    getImage("avatars/robot_male_1")
 ];
 
 // Make an array which has 2 of each, then randomize it
@@ -49,7 +58,7 @@ var selected = [];
 for (var i = 0; i < (NUM_COLS * NUM_ROWS) / 2; i++) {
     // Randomly pick one from the array of remaining faces
     var randomInd = floor(random(possibleFaces.length));
-    var face = possibleFaces[randomInd];
+    var face = possibleFaces[randomInd]; 
     // Push twice onto array
     selected.push(face);
     selected.push(face);
@@ -79,8 +88,8 @@ shuffleArray(selected);
 var tiles = [];
 for (var i = 0; i < NUM_COLS; i++) {
     for (var j = 0; j < NUM_ROWS; j++) {
-        var tileX = i * 78 + 10;
-        var tileY = j * 78 + 40;
+        var tileX = i * 65 + 10;//changed the  multiplication to 65 in order to make tiles closer together to fit on the screen
+        var tileY = j * 65 + 10;//changed the  multiplication to 65 and the addition to 10 in order to make tiles closer together to fit on the screen.
         var tileFace = selected.pop();
         tiles.push(new Tile(tileX, tileY, tileFace));
     }
@@ -135,9 +144,11 @@ draw = function() {
     }
     
     if (numMatches === tiles.length/2) {
-        fill(0, 0, 0);
-        textSize(20);
-        text("You found them all in " + numTries + " tries!", 20, 375);
+        strokeWeight(5);//added strokeWeight
+        stroke(0, 0, 0);//added stroke
+        fill(random(255), random(255), random(255));//changed fill color to be random
+        textSize(30);//increased text size
+        text("You found them all in " + numTries + " tries!", 20, 195);//changed y position
     }
 };
 
