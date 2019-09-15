@@ -2,7 +2,7 @@ var drawRange = function(blue, color, num1, num2) {
     stroke(red, color, color);
     var incAmount = 0.01;
     for (var t = 0; t < incAmount*width; t += incAmount) {
-        var n = noise(t+num2*150);
+        var n = noise(t+num2*250);
         var y = map(n, 0, 1, 0, height/2);
         rect(t*100, height-y-num1, 1, y+50);
     }
